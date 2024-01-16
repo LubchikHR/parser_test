@@ -6,11 +6,13 @@ namespace App\Service;
 
 use App\Service\DTO\GoodsListDTO;
 
-class SaveCSVService
+class CSVSaverService implements SaverInterface
 {
-    public function save(GoodsListDTO $dto, string $filePath): void
+    private const FILE_PATH = __DIR__ . '/../../parsed_goods.csv';
+
+    public function save(GoodsListDTO $dto): void
     {
-        $file = fopen($filePath, 'a');
+        $file = fopen(self::FILE_PATH, 'a');
 
         if ($file === false) {
             throw new \Exception('Error opening the file.');

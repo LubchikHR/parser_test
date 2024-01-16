@@ -8,7 +8,7 @@ use App\Service\DTO\GoodsDTO;
 use App\Service\DTO\GoodsListDTO;
 use Symfony\Component\DomCrawler\Crawler;
 
-class HtmlParserService
+class YakabooHtmlParserService implements ParserInterface
 {
     private string $baseUrl;
     private Crawler $crawler;
@@ -18,10 +18,10 @@ class HtmlParserService
         $this->crawler = $crawler;
     }
 
-    public function parse(string $html): GoodsListDTO
+    public function parse(string $data): GoodsListDTO
     {
         $listDTO = new GoodsListDTO();
-        $this->crawler->addHtmlContent($html);
+        $this->crawler->addHtmlContent($data);
         $nodes = $this->crawler->filterXPath('//div[contains(@class, "category-card ")]');
 
         $this->baseUrl = $this->parseBaseUrl();
