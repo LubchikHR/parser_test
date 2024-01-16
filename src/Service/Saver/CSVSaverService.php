@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Service;
+namespace App\Service\Saver;
 
 use App\Service\DTO\GoodsListDTO;
 
 class CSVSaverService implements SaverInterface
 {
-    private const FILE_PATH = __DIR__ . '/../../parsed_goods.csv';
+    private const FILE_PATH = __DIR__ . '/../../../parsed_goods.csv';
 
     public function save(GoodsListDTO $dto): void
     {
