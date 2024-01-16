@@ -7,6 +7,7 @@ namespace App\Resource;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\Exception\ExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Exception;
 
 class YakabooProvider implements ResourceProviderInterface
 {
@@ -20,6 +21,10 @@ class YakabooProvider implements ResourceProviderInterface
         $this->httpClient = HttpClient::create();
     }
 
+    /**
+     * @return iterable
+     * @throws \Exception
+     */
     public function load(): iterable
     {
         try {
@@ -30,7 +35,7 @@ class YakabooProvider implements ResourceProviderInterface
                 yield $response->getContent();
             }
         } catch (ExceptionInterface $e) {
-            throw new \Exception('Error loading HTML: ' . $e->getMessage());
+            throw new Exception(sprintf('Error loading HTML: "%s".', $e->getMessage()));
         }
     }
 }

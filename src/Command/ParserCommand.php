@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Command;
 
+use Exception;
 use App\Resource\ResourceProviderInterface;
 use App\Service\Saver\SaverInterface;
 use App\Service\Parser\ParserInterface;
@@ -47,8 +48,8 @@ class ParserCommand extends Command
                     $this->saverService->save($goodsDTO);
                 }
             }
-        } catch (\Exception $e) {
-            $output->writeln('Error: ' . $e->getMessage());
+        } catch (Exception $e) {
+            $output->writeln(sprintf('Error: "%s".', $e->getMessage()));
 
             return self::FAILURE;
         }
